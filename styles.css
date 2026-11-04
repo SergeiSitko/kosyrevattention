@@ -13,7 +13,9 @@
   --surface: #FFF9F1;
   --serif: "Literata", Georgia, "Times New Roman", serif;
   --sans: "Source Sans 3", system-ui, sans-serif;
-  --measure: 700px;
+  --measure: 800px;
+  --paper: #FFFCF7;
+  --shadow: 0 16px 60px rgba(67, 43, 24, 0.05);
 }
 
 html[data-theme="dark"] {
@@ -23,10 +25,13 @@ html[data-theme="dark"] {
   --accent: #E08A62;
   --line: #3A3028;
   --surface: #231C17;
+  --paper: #1E1915;
+  --shadow: 0 16px 60px rgba(0, 0, 0, 0.12);
 }
 
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -38,7 +43,8 @@ body {
     var(--bg);
   color: var(--ink);
   font-family: var(--serif);
-  line-height: 1.75;
+  font-size: 17px;
+  line-height: 1.85;
   transition: background 0.25s ease, color 0.25s ease;
 }
 
@@ -65,7 +71,7 @@ a:hover {
   gap: 1rem;
   max-width: var(--measure);
   margin: 0 auto;
-  padding: 1.25rem 1.25rem 0;
+  padding: 1.5rem 0;
 }
 
 .mark {
@@ -108,7 +114,8 @@ a:hover {
   background: var(--surface);
   color: var(--ink);
   border-radius: 999px;
-  padding: 0.4rem 0.9rem;
+  min-height: 44px;
+  padding: 0.5rem 1rem;
   cursor: pointer;
   font-family: var(--sans);
   font-size: 0.82rem;
@@ -128,10 +135,11 @@ a:hover {
 .site-nav {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.55rem;
-  max-width: var(--measure);
-  margin: 1rem auto 0;
-  padding: 0 1.25rem;
+  gap: 0.5rem;
+  margin: 0 0 1.75rem;
+  padding: 1.25rem 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
   font-family: var(--sans);
 }
 
@@ -139,13 +147,13 @@ a:hover {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 2.6rem;
-  padding: 0.55rem 1.15rem;
+  min-height: 44px;
+  padding: 0.45rem 0.85rem;
   border: 1px solid var(--line);
   border-radius: 999px;
   background: var(--surface);
   color: var(--ink);
-  font-size: 1rem;
+  font-size: 0.85rem;
   font-weight: 600;
   letter-spacing: 0.01em;
   text-decoration: none;
@@ -166,12 +174,16 @@ a:hover {
 
 .container {
   max-width: var(--measure);
-  margin: 0 auto;
-  padding: 0 1.25rem 4rem;
+  margin: 0 auto 2rem;
+  padding: clamp(1.25rem, 5vw, 3rem);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  box-shadow: var(--shadow);
 }
 
 .hero {
-  padding: 2.2rem 0 1.6rem;
+  padding: 0.4rem 0 1.5rem;
 }
 
 .kicker {
@@ -187,7 +199,8 @@ a:hover {
 .hero h1 {
   font-family: var(--serif);
   font-weight: 700;
-  font-size: clamp(1.85rem, 5vw, 2.65rem);
+  font-size: clamp(1.9rem, 5.5vw, 3rem);
+  text-wrap: balance;
   line-height: 1.2;
   margin: 0 0 1.1rem;
   letter-spacing: -0.02em;
@@ -197,16 +210,18 @@ a:hover {
   font-size: 1.08rem;
   color: var(--muted);
   margin: 0;
-  max-width: 40rem;
+  width: 100%;
 }
 
 h2 {
   font-family: var(--serif);
-  font-size: 1.4rem;
+  font-size: clamp(1.3rem, 3.8vw, 1.65rem);
+  line-height: 1.4;
+  text-wrap: balance;
   font-weight: 600;
   margin: 2.5rem 0 1rem;
   letter-spacing: -0.01em;
-  scroll-margin-top: 5rem;
+  scroll-margin-top: 1.5rem;
 }
 
 h3 {
@@ -218,7 +233,35 @@ h3 {
 }
 
 p {
-  margin: 0.85rem 0;
+  margin: 1rem 0;
+  overflow-wrap: anywhere;
+}
+
+/* Russian automatic hyphenation keeps justified lines readable on phones. */
+.container p {
+  text-align: justify;
+  text-justify: inter-word;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+.container .hero p,
+.container .pull {
+  text-align: start;
+}
+
+.callout p {
+  margin: 0;
+}
+
+.callout {
+  font-family: var(--sans);
+  font-size: 1.05rem;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--bg);
 }
 
 .card {
@@ -256,7 +299,7 @@ p {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 2.8rem;
+  min-height: 48px;
   margin-top: 0.4rem;
   padding: 0.55rem 1.25rem;
   border-radius: 999px;
@@ -393,6 +436,10 @@ li {
   margin: 1.5rem 0;
 }
 
+.container .contacts p {
+  text-align: center;
+}
+
 .contacts p:last-child {
   margin-bottom: 0;
 }
@@ -414,6 +461,70 @@ footer {
   font-size: 0.82rem;
   color: var(--muted);
   letter-spacing: 0.04em;
+}
+
+@media (max-width: 860px) {
+  .site-header,
+  .container {
+    width: calc(100% - 2rem);
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 16px;
+    line-height: 1.8;
+  }
+
+  .site-header {
+    padding: 0.9rem 0;
+  }
+
+  .container {
+    width: calc(100% - 1rem);
+    border-radius: 18px;
+    padding: 1rem;
+  }
+
+  .hero {
+    padding-top: 0;
+  }
+
+  .hero h1 {
+    letter-spacing: -0.025em;
+  }
+
+  .site-nav {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .site-nav a {
+    font-size: 0.8rem;
+    line-height: 1.4;
+    padding: 0.55rem 0.5rem;
+    border-radius: 12px;
+    text-align: center;
+  }
+
+  .card,
+  .contacts {
+    padding: 1rem;
+    border-radius: 12px;
+  }
+
+  .pull {
+    font-size: 1.12rem;
+  }
+
+  .contact-btn {
+    display: flex;
+    width: 100%;
+  }
+
+  h2 {
+    margin-top: 2rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
