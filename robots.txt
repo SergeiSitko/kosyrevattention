@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://kosyrevattention.win/sitemap.xml
+Sitemap: https://kosarevattention.org/sitemap.xml
